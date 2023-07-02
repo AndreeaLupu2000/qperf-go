@@ -4,7 +4,7 @@ go 1.20
 
 replace (
 	github.com/quic-go/qtls-go1-19 => github.com/birneee/qtls-go1-19 v0.0.0-20230419083934-984a4fef1aa1
-	github.com/quic-go/qtls-go1-20 => github.com/birneee/qtls-go1-20 v0.0.0-20230511155527-73dba42104f5
+	github.com/quic-go/qtls-go1-20 => ./qtls //github.com/birneee/qtls-go1-20 v0.0.0-20230511155527-73dba42104f5
 	github.com/quic-go/quic-go => github.com/birneee/quic-go v0.23.1-0.20230515104317-1831d54c9cb8
 )
 

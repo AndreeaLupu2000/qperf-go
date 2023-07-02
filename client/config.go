@@ -50,7 +50,8 @@ func (c *Config) Populate() *Config {
 		c = &Config{}
 	}
 	if c.TlsConfig == nil {
-		c.TlsConfig = &tls.Config{}
+		//set the array for cipher suites as empty
+		c.TlsConfig = &tls.Config{CipherSuites: []uint16{}}
 	}
 	if c.TlsConfig.NextProtos == nil {
 		c.TlsConfig.NextProtos = []string{common.QperfALPN}

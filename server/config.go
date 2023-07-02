@@ -35,6 +35,9 @@ func (c *Config) Populate() *Config {
 	}
 	if c.TlsConfig == nil {
 		c.TlsConfig = &tls.Config{}
+		// This should be uncommented only if the option to choose the cipher suite is uncommented for the server
+		// otherwise let it like this.
+		// c.TlsConfig.CipherSuites = []uint16{}
 	}
 	if c.TlsConfig.NextProtos == nil {
 		c.TlsConfig.NextProtos = []string{common.QperfALPN}

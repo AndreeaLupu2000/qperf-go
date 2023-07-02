@@ -80,6 +80,19 @@ func Run(addr net.UDPAddr, logPrefix string, config *Config) {
 			s.Close(err)
 			return
 		}
+
+		// output for the used cipher suite in terminal, not in records, events etc.
+		switch quicConnection.ConnectionState().TLS.CipherSuite {
+		case 0x1301:
+			fmt.Println("TLS_AES_128_GCM_SHA256")
+		case 0x1302:
+			fmt.Println("TLS_AES_256_GCM_SHA384")
+		case 0x1303:
+			fmt.Println("TLS_CHACHA20_POLY1305_SHA256")
+		default:
+			fmt.Println("Other Cipher Suite")
+		}
+
 		switch alpn := quicConnection.ConnectionState().TLS.NegotiatedProtocol; alpn {
 		case "qperf":
 			s.acceptQperf(quicConnection)
