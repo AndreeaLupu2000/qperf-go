@@ -51,7 +51,7 @@ func (c *Config) Populate() *Config {
 	}
 	if c.TlsConfig == nil {
 		//set the array for cipher suites as empty
-		c.TlsConfig = &tls.Config{CipherSuites: []uint16{}}
+		c.TlsConfig = &tls.Config{CipherSuites: []uint16{}, ServerName: "localhost"}
 	}
 	if c.TlsConfig.NextProtos == nil {
 		c.TlsConfig.NextProtos = []string{common.QperfALPN}
