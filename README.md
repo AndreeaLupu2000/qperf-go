@@ -14,7 +14,7 @@ Uses https://github.com/birneee/quic-go
 
 ## Example
 ```bash
-$ qperf-go client -a localhost -xads
+$ ./qperf-go client -a localhost -xads
 {"qlog_format":"NDJSON","qlog_version":"draft-02","title":"qperf","code_version":"(devel)","trace":{"vantage_point":{"type":"client"},"common_fields":{"reference_time":1684163451590.148,"time_format":"relative"}}}
 {"time":1.095419,"name":"transport:connection_started","data":{"ip_version":"ipv6","src_ip":"::","src_port":46078,"dst_ip":"127.0.0.1","dst_port":18080,"src_cid":"(empty)","dst_cid":"bcfce24fc203637c9c034a"},"group_id":"bcfce24fc203637c9c034a","ODCID":"bcfce24fc203637c9c034a"}
 {"time":3.466772,"name":"qperf:handshake_completed","data":{}}

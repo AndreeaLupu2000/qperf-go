@@ -286,32 +286,6 @@ func serverCommand(config *server.Config) *cli.Command {
 		Name:  "server",
 		Usage: "run in server mode",
 		Flags: []cli.Flag{
-			//option to choose the cipher suite for the server. At the moment we don't need this
-			/*&cli.StringFlag{
-				Name: "AEAD",
-				Aliases: []string{
-					"cs",
-				},
-				Usage:      "choose the cipher suite, e.g. aes_128, aes_256, chacha20 ",
-				Value:      "default",
-				HasBeenSet: true,
-				Action: func(context *cli.Context, s string) error {
-
-					switch s {
-					case "aes_128":
-						config.TlsConfig.CipherSuites = append(config.TlsConfig.CipherSuites, tls.TLS_AES_128_GCM_SHA256)
-					case "aes_256":
-						config.TlsConfig.CipherSuites = append(config.TlsConfig.CipherSuites, tls.TLS_AES_256_GCM_SHA384)
-					case "chacha20":
-						config.TlsConfig.CipherSuites = append(config.TlsConfig.CipherSuites, tls.TLS_CHACHA20_POLY1305_SHA256)
-					case "default":
-						config.TlsConfig.CipherSuites = config.TlsConfig.CipherSuites
-					default:
-						return fmt.Errorf("unsupported AEAD: %s", s)
-					}
-					return nil
-				},
-			},*/
 			&cli.StringFlag{
 				Name:  "addr",
 				Usage: "address to listen on",
