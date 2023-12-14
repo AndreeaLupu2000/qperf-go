@@ -279,7 +279,8 @@ func (e eventMetricsUpdated) MarshalJSONObject(enc *gojay.Encoder) {
 		enc.Uint64Key("bytes_in_flight", uint64(e.Current.BytesInFlight))
 	}
 	if e.Last == nil || e.Last.PacketsInFlight != e.Current.PacketsInFlight {
-		enc.Uint64KeyOmitEmpty("packets_in_flight", uint64(e.Current.PacketsInFlight))
+		enc.Uint64KeyOmitEmpty(""+
+			"packets_in_flight", uint64(e.Current.PacketsInFlight))
 	}
 }
 
@@ -509,4 +510,20 @@ func (e eventGeneric) IsNil() bool        { return false }
 
 func (e eventGeneric) MarshalJSONObject(enc *gojay.Encoder) {
 	enc.StringKey("details", e.msg)
+}
+
+type eventXadsRecordReceived struct {
+	streamID   logging.StreamID
+	rawLength  int
+	dataLength int
+}
+
+func (e eventXadsRecordReceived) Category() category { return categoryTransport }
+func (e eventXadsRecordReceived) Name() string       { return "xads_record_received" }
+func (e eventXadsRecordReceived) IsNil() bool        { return false }
+
+func (e eventXadsRecordReceived) MarshalJSONObject(enc *gojay.Encoder) {
+	enc.Int64Key("stream_id", int64(e.streamID))
+	enc.IntKey("raw_length", e.rawLength)
+	enc.IntKey("data_length", e.dataLength)
 }

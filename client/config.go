@@ -4,15 +4,15 @@ import (
 	"crypto/tls"
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/logging"
-	"qperf-go/common"
 	qlog2 "qperf-go/common/qlog"
+	"qperf-go/perf"
 	"runtime/debug"
 	"time"
 )
 
 const (
-	DefaultProxyAfter     = 0 * time.Millisecond
 	DefaultProbeTime      = 10 * time.Second
+	MaxProbeTime          = 10 * time.Hour
 	DefaultReportInterval = 1 * time.Second
 	DefaultQlogTitle      = "qperf"
 )
@@ -26,23 +26,29 @@ func getDefaultQlogCodeVersion() string {
 }
 
 type Config struct {
-	TimeToFirstByteOnly bool
-	ProbeTime           time.Duration
-	ReportInterval      time.Duration
-	Use0RTT             bool
-	LogPrefix           string
-	SendStream          bool
-	ReceiveStream       bool
-	SendDatagram        bool
-	ReceiveDatagram     bool
+	TimeToFirstByteOnly   bool
+	ProbeTime             time.Duration
+	ReportInterval        time.Duration
+	Use0RTT               bool
+	LogPrefix             string
+	SendInfiniteStream    bool
+	ReceiveInfiniteStream bool
+	SendDatagram          bool
+	ReceiveDatagram       bool
 	// output path of qlog file. {odcid} is substituted.
-	QlogPathTemplate  string
-	QlogConfig        *qlog2.Config
-	RemoteAddress     string
-	TlsConfig         *tls.Config
-	ReportLostPackets bool
-	ReportMaxRTT      bool
-	QuicConfig        *quic.Config
+	QlogPathTemplate          string
+	QlogConfig                *qlog2.Config
+	RemoteAddress             string
+	TlsConfig                 *tls.Config
+	ReportLostPackets         bool
+	ReportMaxRTT              bool
+	QuicConfig                *quic.Config
+	ReconnectOnTimeoutOrReset bool
+	RequestLength             uint64
+	ResponseLength            uint64
+	RequestInterval           time.Duration
+	Deadline                  time.Duration
+	ResponseDelay             time.Duration
 }
 
 func (c *Config) Populate() *Config {
@@ -50,10 +56,11 @@ func (c *Config) Populate() *Config {
 		c = &Config{}
 	}
 	if c.TlsConfig == nil {
-		c.TlsConfig = &tls.Config{}
+		//set the array for cipher suites as empty
+		c.TlsConfig = &tls.Config{CipherSuites: []uint16{}, ServerName: "localhost"}
 	}
 	if c.TlsConfig.NextProtos == nil {
-		c.TlsConfig.NextProtos = []string{common.QperfALPN}
+		c.TlsConfig.NextProtos = []string{perf.ALPN}
 	}
 	if c.QlogConfig == nil {
 		c.QlogConfig = &qlog2.Config{}
