@@ -38,12 +38,13 @@ $ qperf-go client -a localhost -xads
 ## Requirements
 - Go 1.20 (1.21 not yet supported)
 - Modify the external library Go SDK 1.20 following these steps:
-- open go1.20/src/crypto/aes/cipher_asm.go
-- paste this above the newCipher function:
+  - open go1.20/src/crypto/aes/cipher_asm.go
+  - paste this above the newCipher function: <br />
+  ```go
       func DisableSupportsAES(b bool){
           supportsAES = b
       }
-
+```
 
 ## Build
 ```bash
