@@ -1,7 +1,8 @@
 # QPERF-GO
 
-A performance measurement tool for QUIC ([RFC9000](https://datatracker.ietf.org/doc/html/rfc9000)) similar to iperf.
-Uses https://github.com/birneee/quic-go
+A performance measurement tool for QUIC ([RFC9000](https://datatracker.ietf.org/doc/html/rfc9000)) similar to iperf. 
+Uses https://github.com/birneee/quic-go. <br />
+This repository uses the submodules of qtls-go1-20 (https://github.com/AndreeaLupu2000/qtls-go1-20) and quic-go (https://github.com/AndreeaLupu2000/quic-go). Make sure to clone using `git clone --recurse-submodules`.
 
 ## Features
 
@@ -44,7 +45,6 @@ $ qperf-go client -a localhost -xads
       func DisableSupportsAES(b bool){
           supportsAES = b
       }
-```
 
 ## Build
 ```bash
